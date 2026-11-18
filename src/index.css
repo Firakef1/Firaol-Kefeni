@@ -905,6 +905,7 @@ ul {
 .skill-chip img[src*="nextjs"],
 .skill-chip img[src*="expo"],
 .skill-chip img[src*="express"],
+.skill-chip img[src*="prisma"],
 .skill-chip img[src*="vercel"],
 .skill-chip img[src*="githubactions"] {
   filter: brightness(0) invert(1);

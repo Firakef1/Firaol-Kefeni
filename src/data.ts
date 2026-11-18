@@ -14,15 +14,15 @@ export const profile = {
   lead: 'I build complete products: the database and API, the web and mobile apps, and the server they run on.',
   about: [
     'Self-taught full-stack developer and competitive programmer. I head the Competitive Programming Division at CSEC ASTU, and I am an A2SV trainee.',
-    'I built and shipped the Afri Herbal ERP, which a herbal products company runs its daily sales, stock and production on. It has a Django API, a Next.js web app and a Flutter app for staff, and I deploy and run it on a Linux server myself.',
-    'During my A2SV internship I was Frontend Team Head on SraHub, a job board for Ethiopian job seekers. As division head I run training for our members, and I build the tools we use to track their progress.',
+    "I built and shipped the Afri Herbal ERP, which a herbal products company runs its daily sales, stock and production on. It has a Django API, a Next.js web app and a Flutter app for staff, and I deploy and run it on a Linux server myself. I also put the ASTU College Portals online on the university's own server and keep them running.",
+    "During my A2SV internship I was Frontend Team Head on SraHub, a job board for Ethiopian job seekers. At CSEC ASTU I run the division's training and build the tools we use to track members' progress.",
   ],
 }
 
 export const stats = [
   { value: '300+', label: 'DSA problems solved' },
   { value: '1', label: 'ERP in production' },
-  { value: '5', label: 'apps live on the web' },
+  { value: '6', label: 'apps live on the web' },
 ]
 
 export type Project = {
@@ -42,6 +42,14 @@ export const projects: Project[] = [
       'ERP for a herbal products company: sales and approvals, stock requests, production runs, cashier and salesman workflows, SMS alerts, and a mobile app for field staff.',
     tags: ['Django', 'Next.js', 'Flutter', 'PostgreSQL', 'Docker'],
     live: 'https://afri-herbal.com',
+  },
+  {
+    title: 'ASTU College Portals',
+    kind: 'Production',
+    description:
+      "Official portals for Adama Science and Technology University's colleges. I deployed and run them: five college sites and four Express + Prisma APIs under one domain on ASTU's server, with nginx, TLS, pm2, deploy scripts with one-command revert, and backups.",
+    tags: ['nginx', 'Linux', 'Node.js', 'Prisma', 'React'],
+    live: 'https://colleges.astu.edu.et',
   },
   {
     title: 'SraHub',
@@ -146,6 +154,7 @@ export const skillGroups: { label: string; skills: Skill[] }[] = [
       { name: 'Flask', icon: icon('flask') },
       { name: 'Node.js', icon: icon('nodejs') },
       { name: 'Express', icon: icon('express') },
+      { name: 'Prisma', icon: icon('prisma') },
       { name: 'WebSockets' },
       { name: 'REST APIs' },
       { name: 'OAuth & JWT' },
@@ -173,6 +182,7 @@ export const skillGroups: { label: string; skills: Skill[] }[] = [
       { name: 'Docker', icon: icon('docker') },
       { name: 'GitHub Actions', icon: icon('githubactions') },
       { name: 'Linux', icon: icon('linux') },
+      { name: 'Nginx', icon: icon('nginx') },
       { name: 'Git', icon: icon('git') },
       { name: 'Vercel', icon: icon('vercel') },
       { name: 'Cloudflare', icon: icon('cloudflare') },
@@ -186,6 +196,12 @@ export const experience = [
     title: 'Afri Herbal',
     role: 'Full-stack Developer',
     body: 'Built and shipped the company ERP: Django + Django Ninja API, Next.js web app and Flutter staff app. I also deploy and run it on a Linux server with Docker, Caddy and on-server backups.',
+  },
+  {
+    year: '2026',
+    title: 'ASTU College Portals',
+    role: 'Deployment & Integration',
+    body: "Took the college teams' code to production at colleges.astu.edu.et on the university's own server: sub-path routing, TLS, process management, safe deploy and revert scripts, backups, and a data recovery when the live database was overwritten.",
   },
   {
     year: '2025 — Now',
