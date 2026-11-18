@@ -22,7 +22,7 @@ export const profile = {
 export const stats = [
   { value: '300+', label: 'DSA problems solved' },
   { value: '1', label: 'ERP in production' },
-  { value: '4', label: 'apps live on the web' },
+  { value: '5', label: 'apps live on the web' },
 ]
 
 export type Project = {
@@ -49,6 +49,7 @@ export const projects: Project[] = [
     description:
       'Job board for Ethiopian job seekers and employers. I led the frontend team; the stack is a Go REST API, a Next.js web app on Cloudflare, and a Flutter app.',
     tags: ['Next.js', 'Go', 'Flutter', 'PostgreSQL'],
+    live: 'https://srahub-web.firaolkef.workers.dev/',
   },
   {
     title: 'CP Tracker',
