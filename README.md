@@ -13,7 +13,7 @@ A fast, animated personal portfolio built with React, TypeScript, and Vite. It s
 - Fully responsive layout for mobile, tablet, and desktop
 - Type-safe codebase with TypeScript
 - Lightning-fast dev server and optimized builds with Vite
-- [Add or remove: dark/light mode, contact form, project filters, etc.]
+- Project cards with live demo and source links, a skills toolkit, and an experience timeline
 
 ## Tech Stack
 
@@ -85,10 +85,5 @@ This is a static site, so it deploys easily to platforms like [Vercel](https://v
 
 ## Contact
 
-- **Email:** [your-email@example.com](mailto:your-email@example.com)
 - **GitHub:** [@Firakef1](https://github.com/Firakef1)
 - **LinkedIn:** [https://www.linkedin.com/in/firaol-kefeni-649a3b364/](https://www.linkedin.com/in/firaol-kefeni-649a3b364/)
-
-## License
-
-This project is licensed under the [MIT License](./LICENSE). _(Add a `LICENSE` file, or remove this section.)_

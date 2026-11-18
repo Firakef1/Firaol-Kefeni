@@ -1,11 +1,13 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion'
 import {
   experience,
   otherProjects,
   profile,
   projects,
   skillGroups,
+  stats,
+  type Project,
 } from './data'
 import { handleAnchorClick, initSmoothScroll } from './scroll'
 
@@ -70,9 +72,12 @@ function Nav() {
   }, [open])
 
   const close = () => setOpen(false)
+  const { scrollYProgress } = useScroll()
+  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 28, mass: 0.3 })
 
   return (
     <header className={`nav${scrolled || open ? ' scrolled' : ''}`}>
+      <motion.div className="nav-progress" style={{ scaleX: progress }} aria-hidden="true" />
       <div className="nav-inner">
         <a className="nav-brand" href="#top" onClick={(e) => { handleAnchorClick(e); close() }}>
           Firaol.
@@ -93,6 +98,9 @@ function Nav() {
           </a>
           <a href="#about" onClick={(e) => { handleAnchorClick(e); close() }}>
             About
+          </a>
+          <a href="#skills" onClick={(e) => { handleAnchorClick(e); close() }}>
+            Skills
           </a>
           <a href="#experience" onClick={(e) => { handleAnchorClick(e); close() }}>
             Path
@@ -121,6 +129,16 @@ function Hero() {
     <section className="hero" id="top" aria-label="Introduction">
       <div className="hero-shell">
         <div className="hero-copy">
+          <motion.p
+            className="hero-status"
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.05 }}
+          >
+            <span className="status-dot" aria-hidden="true" />
+            {profile.status}
+          </motion.p>
+
           <motion.h1
             className="hero-brand"
             initial={reduce ? false : { opacity: 0, y: 32 }}
@@ -153,6 +171,20 @@ function Hero() {
               Contact
             </a>
           </motion.div>
+
+          <motion.dl
+            className="hero-stats"
+            initial={reduce ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            {stats.map((stat) => (
+              <div className="hero-stat" key={stat.label}>
+                <dt>{stat.value}</dt>
+                <dd>{stat.label}</dd>
+              </div>
+            ))}
+          </motion.dl>
         </div>
 
         <motion.div
@@ -167,10 +199,57 @@ function Hero() {
             width={1875}
             height={2400}
           />
-          <p className="hero-caption">Full-stack since 2023</p>
+          <p className="hero-caption">Building since 2023</p>
         </motion.div>
       </div>
     </section>
+  )
+}
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const primary = project.live ?? project.code
+
+  return (
+    <article className={`work-item${primary ? ' is-linked' : ''}`}>
+      <span className="work-index">{String(index + 1).padStart(2, '0')}</span>
+      <div className="work-main">
+        <div className="work-title-row">
+          <h3>
+            {primary ? (
+              <a className="work-stretch" href={primary} target="_blank" rel="noreferrer">
+                {project.title}
+              </a>
+            ) : (
+              project.title
+            )}
+          </h3>
+          <span className={`kind kind-${project.kind.toLowerCase()}`}>{project.kind}</span>
+        </div>
+        <p>{project.description}</p>
+        <div className="work-tags">
+          {project.tags.map((tag) => (
+            <span className="tag" key={tag}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="work-links">
+        {project.live && (
+          <a className="work-link work-link-live" href={project.live} target="_blank" rel="noreferrer">
+            Live
+            <ArrowIcon />
+          </a>
+        )}
+        {project.code && (
+          <a className="work-link" href={project.code} target="_blank" rel="noreferrer">
+            Code
+            <ArrowIcon />
+          </a>
+        )}
+        {!project.live && !project.code && <span className="work-private">Private repo</span>}
+      </div>
+    </article>
   )
 }
 
@@ -185,7 +264,7 @@ function Work() {
               <h2 className="section-title">Selected projects</h2>
             </div>
             <p className="section-aside">
-              Featured builds from{' '}
+              Things real people use, plus the side projects where I learn. More on{' '}
               <a href={profile.github} target="_blank" rel="noreferrer">
                 GitHub
               </a>
@@ -197,44 +276,23 @@ function Work() {
         <div className="work-list">
           {projects.map((project, i) => (
             <Reveal key={project.title} delay={i * 0.05}>
-              <a
-                className="work-item"
-                href={project.href}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <span className="work-index">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div className="work-main">
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="work-tags">
-                    {project.tags.map((tag) => (
-                      <span className="tag" key={tag}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <span className="work-link">
-                  View
-                  <ArrowIcon />
-                </span>
-              </a>
+              <ProjectCard project={project} index={i} />
             </Reveal>
           ))}
         </div>
 
         <Reveal delay={0.1}>
           <div className="other-work">
-            <p className="section-label">Other</p>
-            <ul className="other-list">
+            <p className="section-label">More builds</p>
+            <ul className="other-grid">
               {otherProjects.map((item) => (
                 <li key={item.title}>
                   <a href={item.href} target="_blank" rel="noreferrer">
-                    {item.title}
-                    <ArrowIcon />
+                    <span className="other-title">
+                      {item.title}
+                      <ArrowIcon />
+                    </span>
+                    <span className="other-desc">{item.description}</span>
                   </a>
                 </li>
               ))}
@@ -253,7 +311,7 @@ function About() {
         <Reveal className="about-panel">
           <p className="section-label">About</p>
           <p className="about-quote">
-            Curious builder who likes learning how things work.
+            Curious builder who likes learning how things work, then shipping them.
           </p>
         </Reveal>
 
@@ -270,10 +328,6 @@ function About() {
 }
 
 function Skills() {
-  const [showTools, setShowTools] = useState(false)
-  const primary = skillGroups.filter((g) => g.label !== 'Tools')
-  const tools = skillGroups.find((g) => g.label === 'Tools')
-
   return (
     <section className="section" id="skills" aria-label="Skills">
       <div className="container">
@@ -281,20 +335,27 @@ function Skills() {
           <div className="section-head">
             <div>
               <p className="section-label">Toolkit</p>
-              <h2 className="section-title">Frontend &amp; backend</h2>
+              <h2 className="section-title">What I work with</h2>
             </div>
+            <p className="section-aside">
+              Everything here is something I&apos;ve shipped with, not just tried.
+            </p>
           </div>
         </Reveal>
 
         <div className="skills-groups">
-          {primary.map((group) => (
-            <Reveal key={group.label}>
+          {skillGroups.map((group, i) => (
+            <Reveal key={group.label} delay={i * 0.05}>
               <div className="skills-group">
                 <h3 className="skills-group-label">{group.label}</h3>
-                <ul className="skills-grid">
+                <ul className="skills-chips">
                   {group.skills.map((skill) => (
-                    <li className="skill-box" key={skill.name}>
-                      <img src={skill.icon} alt="" width={36} height={36} />
+                    <li className="skill-chip" key={skill.name}>
+                      {skill.icon ? (
+                        <img src={skill.icon} alt="" width={20} height={20} loading="lazy" />
+                      ) : (
+                        <span className="skill-dot" aria-hidden="true" />
+                      )}
                       <span>{skill.name}</span>
                     </li>
                   ))}
@@ -302,34 +363,6 @@ function Skills() {
               </div>
             </Reveal>
           ))}
-
-          {tools && (
-            <Reveal>
-              <div className="skills-group">
-                <div className="skills-group-head">
-                  <h3 className="skills-group-label">{tools.label}</h3>
-                  <button
-                    type="button"
-                    className="btn btn-ghost skills-toggle"
-                    onClick={() => setShowTools((v) => !v)}
-                    aria-expanded={showTools}
-                  >
-                    {showTools ? 'Hide' : 'More'}
-                  </button>
-                </div>
-                {showTools && (
-                  <ul className="skills-grid">
-                    {tools.skills.map((skill) => (
-                      <li className="skill-box" key={skill.name}>
-                        <img src={skill.icon} alt="" width={36} height={36} />
-                        <span>{skill.name}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </Reveal>
-          )}
         </div>
       </div>
     </section>
@@ -384,7 +417,7 @@ function Contact() {
       `Name: ${name}\nEmail: ${email}\n\n${message}`,
     )
 
-    window.location.href = `mailto:?subject=${subject}&body=${body}`
+    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`
     setStatus('sent')
     form.reset()
   }
@@ -397,7 +430,8 @@ function Contact() {
             <div className="contact-intro">
               <p className="section-label">Contact</p>
               <h2>Let&apos;s talk.</h2>
-              <p>Open to internships and collaborations.</p>
+              <p>Open to internships, freelance builds and collaborations. If you need something built end to end, I&apos;d like to hear about it.</p>
+              {profile.email && (
               <div className="contact-links">
                 <a href={profile.github} target="_blank" rel="noreferrer">
                   GitHub
@@ -412,8 +446,10 @@ function Contact() {
                   Codeforces
                 </a>
               </div>
+              )}
             </div>
 
+            {profile.email ? (
             <form className="contact-form" onSubmit={onSubmit} noValidate>
               <div className="form-row">
                 <label className="field">
@@ -458,6 +494,22 @@ function Contact() {
                 )}
               </div>
             </form>
+            ) : (
+              <div className="contact-cards">
+                {[
+                  { label: 'GitHub', href: profile.github, note: 'Code and projects' },
+                  { label: 'LinkedIn', href: profile.linkedin, note: 'Message me here' },
+                  { label: 'LeetCode', href: profile.leetcode, note: '300+ problems' },
+                  { label: 'Codeforces', href: profile.codeforces, note: 'Contests' },
+                ].map((link) => (
+                  <a className="contact-card" key={link.label} href={link.href} target="_blank" rel="noreferrer">
+                    <span>{link.label}</span>
+                    <small>{link.note}</small>
+                    <ArrowIcon />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
         </Reveal>
       </div>
