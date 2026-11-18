@@ -129,16 +129,6 @@ function Hero() {
     <section className="hero" id="top" aria-label="Introduction">
       <div className="hero-shell">
         <div className="hero-copy">
-          <motion.p
-            className="hero-status"
-            initial={reduce ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-          >
-            <span className="status-dot" aria-hidden="true" />
-            {profile.status}
-          </motion.p>
-
           <motion.h1
             className="hero-brand"
             initial={reduce ? false : { opacity: 0, y: 32 }}

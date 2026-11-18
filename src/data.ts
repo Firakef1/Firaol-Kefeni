@@ -10,7 +10,6 @@ export const profile = {
   leetcode: 'https://leetcode.com/u/firakef/',
   codeforces: 'https://codeforces.com/profile/firakef',
   avatar: '/avatar-hero.jpg',
-  status: 'Open to internships & collaborations',
   lead: 'I build complete products: the database and API, the web and mobile apps, and the server they run on.',
   about: [
     'Self-taught full-stack developer and competitive programmer. I head the Competitive Programming Division at CSEC ASTU, and I am an A2SV trainee.',
