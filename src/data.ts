@@ -13,9 +13,9 @@ export const profile = {
   status: 'Open to internships & collaborations',
   lead: 'I build complete products: the database and API, the web and mobile apps, and the server they run on.',
   about: [
-    'Self-taught full-stack developer and competitive programmer. A2SV trainee and member of the CSEC ASTU competitive programming division.',
+    'Self-taught full-stack developer and competitive programmer. I head the Competitive Programming Division at CSEC ASTU, and I am an A2SV trainee.',
     'I built and shipped the Afri Herbal ERP, which a herbal products company runs its daily sales, stock and production on. It has a Django API, a Next.js web app and a Flutter app for staff, and I deploy and run it on a Linux server myself.',
-    'During my A2SV internship I was Frontend Team Head on SraHub, a job board for Ethiopian job seekers. Outside of work I build tools for my CP community and keep solving problems on LeetCode and Codeforces.',
+    'During my A2SV internship I was Frontend Team Head on SraHub, a job board for Ethiopian job seekers. As division head I run training for our members, and I build the tools we use to track their progress.',
   ],
 }
 
@@ -55,7 +55,7 @@ export const projects: Project[] = [
     title: 'CP Tracker',
     kind: 'Production',
     description:
-      'Tracker for the CSEC ASTU competitive programming division. It pulls solves from Codeforces and LeetCode automatically and scores consistency, streaks and contest attendance.',
+      'Tracker I built for the CSEC ASTU Competitive Programming Division, which I lead. It pulls solves from Codeforces and LeetCode automatically and scores consistency, streaks and contest attendance.',
     tags: ['FastAPI', 'PostgreSQL', 'Next.js', 'Docker'],
     live: 'https://cp-tracker-puce.vercel.app',
   },
@@ -202,8 +202,8 @@ export const experience = [
   {
     year: 'Ongoing',
     title: 'CSEC ASTU',
-    role: 'Competitive Programming Division',
-    body: 'Daily Codeforces and LeetCode practice. I built CP Tracker and a question-of-the-day Telegram bot for the division.',
+    role: 'Head, Competitive Programming Division',
+    body: 'I lead the division: training sessions, problem sheets, contests and keeping members on track. I built CP Tracker and a question-of-the-day Telegram bot so practice is tracked automatically.',
   },
   {
     year: '2023 — Now',
