@@ -3,8 +3,7 @@ export const profile = {
   firstName: 'Firaol',
   lastName: 'Kefeni',
   title: 'Full-stack developer',
-  // Set this to show the contact form; without it the section shows links only.
-  email: '',
+  email: 'firaolkef@gmail.com',
   github: 'https://github.com/Firakef1',
   linkedin: 'https://www.linkedin.com/in/firaol-kefeni-649a3b364',
   leetcode: 'https://leetcode.com/u/firakef/',

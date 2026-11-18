@@ -971,6 +971,35 @@ ul {
   font-size: 1.02rem;
 }
 
+.contact-email {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-email a {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.contact-email a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.copy-btn {
+  min-height: 2.2rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+}
+
 .contact-links {
   display: flex;
   flex-wrap: wrap;

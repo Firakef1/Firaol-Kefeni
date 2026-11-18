@@ -393,6 +393,17 @@ function Experience() {
 
 function Contact() {
   const [status, setStatus] = useState<'idle' | 'sent'>('idle')
+  const [copied, setCopied] = useState(false)
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1800)
+    } catch {
+      window.location.href = `mailto:${profile.email}`
+    }
+  }
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -421,7 +432,12 @@ function Contact() {
               <p className="section-label">Contact</p>
               <h2>Let&apos;s talk.</h2>
               <p>Open to internships, freelance builds and collaborations. If you need something built end to end, I&apos;d like to hear about it.</p>
-              {profile.email && (
+              <div className="contact-email">
+                <a href={`mailto:${profile.email}`}>{profile.email}</a>
+                <button type="button" className="btn btn-ghost copy-btn" onClick={copyEmail}>
+                  {copied ? 'Copied' : 'Copy'}
+                </button>
+              </div>
               <div className="contact-links">
                 <a href={profile.github} target="_blank" rel="noreferrer">
                   GitHub
@@ -436,7 +452,6 @@ function Contact() {
                   Codeforces
                 </a>
               </div>
-              )}
             </div>
 
             {profile.email ? (
@@ -515,6 +530,8 @@ function Footer() {
           © {new Date().getFullYear()} {profile.name}
         </p>
         <p>
+          <a href={`mailto:${profile.email}`}>Email</a>
+          {' · '}
           <a href={profile.github} target="_blank" rel="noreferrer">
             GitHub
           </a>
