@@ -126,8 +126,8 @@ export const otherProjects = [
   },
 ]
 
-const icon = (slug: string, style = 'original') =>
-  `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${slug}/${slug}-${style}.svg`
+// Icons are stored in public/icons so they load even when an icon CDN is blocked or slow.
+const icon = (slug: string) => `/icons/${slug}.svg`
 
 export type Skill = { name: string; icon?: string }
 
@@ -138,17 +138,17 @@ export const skillGroups: { label: string; skills: Skill[] }[] = [
       { name: 'Python', icon: icon('python') },
       { name: 'TypeScript', icon: icon('typescript') },
       { name: 'JavaScript', icon: icon('javascript') },
-      { name: 'Go', icon: icon('go', 'original-wordmark') },
+      { name: 'Go', icon: icon('go') },
       { name: 'Java', icon: icon('java') },
       { name: 'C++', icon: icon('cplusplus') },
       { name: 'Dart', icon: icon('dart') },
-      { name: 'SQL', icon: icon('postgresql') },
+      { name: 'SQL' },
     ],
   },
   {
     label: 'Backend',
     skills: [
-      { name: 'Django', icon: icon('django', 'plain') },
+      { name: 'Django', icon: icon('django') },
       { name: 'FastAPI', icon: icon('fastapi') },
       { name: 'Flask', icon: icon('flask') },
       { name: 'Node.js', icon: icon('nodejs') },
@@ -163,7 +163,7 @@ export const skillGroups: { label: string; skills: Skill[] }[] = [
     label: 'Frontend & mobile',
     skills: [
       { name: 'React', icon: icon('react') },
-      { name: 'Next.js', icon: icon('nextjs', 'plain') },
+      { name: 'Next.js', icon: icon('nextjs') },
       { name: 'Vite', icon: icon('vitejs') },
       { name: 'Tailwind', icon: icon('tailwindcss') },
       { name: 'React Native', icon: icon('react') },
@@ -175,7 +175,7 @@ export const skillGroups: { label: string; skills: Skill[] }[] = [
     label: 'Data & DevOps',
     skills: [
       { name: 'PostgreSQL', icon: icon('postgresql') },
-      { name: 'SQLAlchemy', icon: icon('sqlalchemy') },
+      { name: 'SQLAlchemy' },
       { name: 'MongoDB', icon: icon('mongodb') },
       { name: 'Redis', icon: icon('redis') },
       { name: 'Docker', icon: icon('docker') },
